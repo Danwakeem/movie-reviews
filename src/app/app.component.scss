@@ -1,0 +1,17 @@
+.container {
+  padding-bottom: 1rem;
+
+  .banner {
+    margin-bottom: 1rem;
+
+    .square {
+      height: 7rem;
+      width: 25%;
+      overflow: hidden;
+
+      img {
+        width: 100%;
+      }
+    }
+  }
+}

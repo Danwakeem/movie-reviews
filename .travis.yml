@@ -1,0 +1,27 @@
+sudo: required
+language: node_js
+node_js:
+   - '11'
+script: 'true'
+cache: 
+  directories:
+    - "$HOME/.npm"
+addons:
+  chrome: stable
+
+branches:
+  only:
+    - master
+
+install:
+  - npm ci
+
+jobs:
+  include:
+    - stage: "Lint, Build, and Test"
+      script: npm run git:build
+      name: "Building"
+    - script: ng lint
+      name: "Linting"
+    - script: npm run git:test
+      name: "Unit Testing"

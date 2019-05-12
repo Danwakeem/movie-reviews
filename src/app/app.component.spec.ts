@@ -1,18 +1,26 @@
 import { TestBed, async } from '@angular/core/testing';
 import { RouterTestingModule } from '@angular/router/testing';
 import { AppComponent } from './app.component';
+import { configureTestSuite } from 'ng-bullet';
+import { SharedModule } from '@shared/shared.module';
+import { Store } from '@ngrx/store';
+import { TestStore } from '@shared/testing/TestStore';
 
 describe('AppComponent', () => {
-  beforeEach(async(() => {
+  configureTestSuite(() => {
     TestBed.configureTestingModule({
       imports: [
-        RouterTestingModule
+        RouterTestingModule,
+        SharedModule,
       ],
       declarations: [
         AppComponent
       ],
-    }).compileComponents();
-  }));
+      providers: [
+        {provide: Store, useClass: TestStore},
+      ],
+    });
+  });
 
   it('should create the app', () => {
     const fixture = TestBed.createComponent(AppComponent);
@@ -24,12 +32,5 @@ describe('AppComponent', () => {
     const fixture = TestBed.createComponent(AppComponent);
     const app = fixture.debugElement.componentInstance;
     expect(app.title).toEqual('movie-reviews');
-  });
-
-  it('should render title in a h1 tag', () => {
-    const fixture = TestBed.createComponent(AppComponent);
-    fixture.detectChanges();
-    const compiled = fixture.debugElement.nativeElement;
-    expect(compiled.querySelector('h1').textContent).toContain('Welcome to movie-reviews!');
   });
 });
